@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Insert Record
+        </title>
+
+        <!--Style Sheet-->
+        <link rel="stylesheet" href="home.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <a href="">View Record</a>
+                <a href="">Update Record </a>
+            </nav>
+
+        </header>
+
+        <!--Form-->
+        <form id="gameForm">
+            <input type="text" name="game_id" placeholder="Game ID" required> <br>
+            <input type="text" name="name" placeholder="Game Name" required> <br>
+            <input type="date" name="release_date" required> <br>
+            <textarea name="about_game" placeholder="About the Game"></textarea> <br>
+            <input type="text" name="developer" placeholder="Developer"> <br>
+            <input type="text" name="publisher" placeholder="Publisher"> <br>
+            <div>
+                <label>Platforms:</label><br>
+                <input type="checkbox" id="windows" name="platforms" value="Windows">
+                <label for="windows">Windows</label><br>
+                <input type="checkbox" id="mac" name="platforms" value="Mac">
+                <label for="mac">macOS</label><br>
+                <input type="checkbox" id="linux" name="platforms" value="Linux">
+                <label for="linux">Linux</label>
+            </div>
+             <br>
+            <input type="text" name="genres" placeholder="Genres"> <br>
+            <input type="text" name="tags" placeholder="Tags"> <br>
+            <input type="text" name="appid" placeholder="App ID" required> <br>
+            <input type="number" name="price" placeholder="Price" step="0.01"> <br>
+            <input type="number" name="dlc_count" placeholder="DLC Count"> <br>
+            <input type="number" name="metacritic_score" placeholder="Metacritic Score"> <br>
+            <input type="number" name="user_score" placeholder="User Score" step="0.01"> <br>
+            <input type="number" name="recommendations" placeholder="Recommendations"> <br>
+            <input type="number" name="positive_reviews" placeholder="Positive Reviews"> <br>
+            <input type="number" name="negative_reviews" placeholder="Negative Reviews"> <br>
+            <input type="number" name="estimated_owners" placeholder="Estimated Owners"> <br>
+            <input type="number" name="avg_playtime_f" placeholder="Average Playtime Forever" step="0.01"> <br>
+            <input type="number" name="avg_playtime_2w" placeholder="Average Playtime 2 Weeks" step="0.01"> <br>
+            <input type="number" name="median_playtime_f" placeholder="Median Playtime Forever" step="0.01"> <br>
+            <input type="number" name="median_playtime_2w" placeholder="Median Playtime 2 Weeks" step="0.01"> <br>
+            <input type="number" name="peak_concurrent_users" placeholder="Peak Concurrent Users"> <br>
+            <button type="submit">Add Game</button>
+        </form>
+
+    <!--JavaScript-->
+    <script>
+        document.getElementById('gameForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent form's default submission behavior
+            const formData = new FormData(e.target); // Collect form data
+            const data = Object.fromEntries(formData); // Convert FormData to JSON-like object
+
+            // Handle the platforms checkboxes as an array
+            const platforms = formData.getAll('platforms'); // Collect all checked platforms
+            data.platforms = platforms;
+
+            try {
+                const response = await fetch('/gamedata', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message); // Notify success
+                } else {
+                    alert('Failed to add record. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the game record.');
+            }
+        });
+    </script>
+    </body>
+</html>
