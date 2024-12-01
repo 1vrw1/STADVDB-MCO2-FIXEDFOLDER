@@ -12,7 +12,113 @@
         </title>
 
         <!--Style Sheet-->
+        <link rel="stylesheet" href="home.css<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Home Page
+        </title>
+
+        <!--Style Sheet-->
         <link rel="stylesheet" href="home.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <!--Search bar-->
+                <div class="search">
+
+                    <!-- Dropdown Options -->
+                    <select class="search-options" id="searchOptions">
+                        <option value="Game ID">Game ID</option>
+                        <option value="Name">Name</option>
+                        <option value="Release Date">Release Date</option>
+                        <option value="About the Game">About the Game</option>
+                        <option value="Developer/Publisher">Developer/Publisher</option>
+                        <option value="Platforms">Platforms</option>
+                        <option value="Genres">Genres</option>
+                        <option value="App ID">App ID</option>
+                        <option value="Price">Price</option>
+                        <option value="DLC Count">DLC Count</option>
+                        <option value="Metacritic Score">Metacritic Score</option>
+                        <option value="User Score">User Score</option>
+                        <option value="Recommendations">Recommendations</option>
+                        <option value="Total Reviews">Total Reviews</option>
+                        <option value="Estimated Owners">Estimated Owners</option>
+                        <option value="Avg Playtime">Avg Playtime</option>
+                        <option value="Median Playtime">Median Playtime</option>
+                        <option value="Peak Concurrent Users">Peak Concurrent Users</option>
+                    </select>
+
+                    <select class="search-operators" id="searchOperators">
+                        <option value="Name"> == </option>
+                        <option value="Game ID"> > </option>
+                        <option value="Game ID"> >= </option>
+                        <option value="Release Date"> < </option>
+                        <option value="Game ID"> <= </option>
+                        <option value="Game ID"> != </option>
+                    </select>
+
+                    <input class="search-input" type="search" placeholder="Search">
+
+                    <div class="search-icon">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+
+                </div>
+                </div>
+
+                <a href="insert.html">Insert Record</a>
+                <a href="">Update Record </a>
+            </nav>
+
+        </header>
+
+        <!--Display Game Records-->
+        <table>
+            <thead>
+                <tr>
+                    <th>Game ID</th>
+                    <th>Name</th>
+                    <th>Release Date</th>
+                    <th>About the Game</th>
+                    <th>Developer/Publisher</th>
+                    <th>Platforms</th>
+                    <th>Genres</th>
+                    <th>App ID</th>
+                    <th>Price</th>
+                    <th>DLC Count</th>
+                    <th>Metacritic Score</th>
+                    <th>User Score</th>
+                    <th>Recommendations</th>
+                    <th>Total Reviews</th>
+                    <th>Estimated Owners</th>
+                    <th>Avg Playtime</th>
+                    <th>Median Playtime</th>
+                    <th>Peak Concurrent Users</th>
+                </tr>
+            </thead>
+            <tbody id="gameTableBody">
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+
+        <!--Icon JavaScript-->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    </body>
+</html>">
 
     </head>
 
