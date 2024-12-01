@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Update Record
+        </title>
+
+        <!--Style Sheet-->
+        <link rel="stylesheet" href="update.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <a href="home.html">View Record</a>
+                <a href="insert.html">Insert Record</a>
+            </nav>
+
+        </header>
+
+        <!--Form-->
+    <form id="gameForm">
+        <input type="text" name="game_id" placeholder="Game ID" required>
+        <input type="text" name="name" placeholder="Game Name" required>
+        <input type="date" name="release_date" required>
+        <textarea name="about_game" placeholder="About the Game"></textarea>
+        <input type="text" name="developer" placeholder="Developer">
+        <input type="text" name="publisher" placeholder="Publisher">
+        <div>
+            <label>Platforms:</label><br>
+            <input type="checkbox" id="windows" name="platforms" value="Windows">
+            <label for="windows">Windows</label><br>
+            <input type="checkbox" id="mac" name="platforms" value="Mac">
+            <label for="mac">macOS</label><br>
+            <input type="checkbox" id="linux" name="platforms" value="Linux">
+            <label for="linux">Linux</label>
+        </div>
+        <input type="text" name="genres" placeholder="Genres">
+        <input type="text" name="tags" placeholder="Tags">
+        <input type="text" name="appid" placeholder="App ID" required>
+        <input type="number" name="price" placeholder="Price" min="0">
+        <input type="number" name="dlc_count" placeholder="DLC Count" min="0">
+        <input type="number" name="metacritic_score" placeholder="Metacritic Score" min="0">
+        <input type="number" name="user_score" placeholder="User Score" min="0">
+        <input type="number" name="recommendations" placeholder="Recommendations" min="0">
+        <input type="number" name="positive_reviews" placeholder="Positive Reviews" min="0">
+        <input type="number" name="negative_reviews" placeholder="Negative Reviews" min="0">
+        <input type="number" name="estimated_owners" placeholder="Estimated Owners" min="0">
+        <input type="number" name="avg_playtime_f" placeholder="Average Playtime Forever" min="0">
+        <input type="number" name="avg_playtime_2w" placeholder="Average Playtime 2 Weeks" min="0">
+        <input type="number" name="median_playtime_f" placeholder="Median Playtime Forever" min="0">
+        <input type="number" name="median_playtime_2w" placeholder="Median Playtime 2 Weeks" min="0">
+        <input type="number" name="peak_concurrent_users" placeholder="Peak Concurrent Users" min="0">
+        <button type="submit">Update Record</button>
+        <button class="delete" type="submit">Remove Record</button>
+    </form>
+
+    </body>
+</html>
