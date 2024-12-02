@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Home Page
+        </title>
+
+        <!--Style Sheet-->
+        <link rel="stylesheet" href="home.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <!--Search bar-->
+                <div class="search">
+
+                    <!-- Dropdown Options -->
+                    <select class="search-options" id="searchOptions">
+                        <option value="Game ID">Game ID</option>
+                        <option value="Name">Name</option>
+                        <option value="Release Date">Release Date</option>
+                        <option value="About the Game">About the Game</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Publisher">Publisher</option>
+                        <option value="Price">Price</option>
+                        <option value="Genres">Genres</option>
+                        <option value="Positive Reviews">Positive Reviews</option>
+                        <option value="Negative Reviews">Negative Reviews</option>
+                    </select>
+
+                    <select class="search-operators" id="searchOperators">
+                        <option value="Name"> == </option>
+                        <option value="Game ID"> > </option>
+                        <option value="Game ID"> >= </option>
+                        <option value="Release Date"> < </option>
+                        <option value="Game ID"> <= </option>
+                        <option value="Game ID"> != </option>
+                    </select>
+
+                    <input class="search-input" type="search" placeholder="Search">
+
+                    <div class="search-icon">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+
+                    <input class="limit" type="number" name="limit" placeholder="Limit" step="1" min="0">
+                </div>
+                </div>
+
+                <a href="insert.html">Insert Record</a>
+                <a href="update.html">Update Record </a>
+                <a href="report.html">Report </a>
+            </nav>
+
+        </header>
+
+        <!--Display Game Records-->
+        <table>
+            <thead>
+                <tr>
+                    <th>Game ID</th>
+                    <th>Name</th>
+                    <th>Release Date</th>
+                    <th>About the Game</th>
+                    <th>Developer</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                    <th>Genres</th>
+                    <th>Positive Reviews</th>
+                    <th>Negative Reviews</th>
+                </tr>
+            </thead>
+            <tbody id="gameTableBody">
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+
+        <!--Icon JavaScript-->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        
+        <!--JavaScript-->
+        <script>
+            const tableBody = document.getElementById('gameTableBody');
+            const searchButton = document.getElementById('searchButton');
+            const searchOptions = document.getElementById('searchOptions');
+            const searchOperators = document.getElementById('searchOperators');
+            const searchInput = document.getElementById('searchInput');
+            const resultLimit = document.getElementById('resultLimit');
+
+            // Fetch game records from the backend
+            async function fetchGames(queryParams = '') {
+                try {
+                    const response = await fetch(`http://localhost:3000/games${queryParams}`);
+                    if (!response.ok) throw new Error('Failed to fetch games.');
+                    const games = await response.json();
+                    populateTable(games);
+                } catch (error) {
+                    console.error('Error fetching games:', error);
+                }
+            }
+
+            // Populate the table with game records
+            function populateTable(games) {
+                tableBody.innerHTML = ''; // Clear the table
+                games.forEach((game) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${game.game_id}</td>
+                        <td>${game.name}</td>
+                        <td>${game.release_date}</td>
+                        <td>${game.about_game}</td>
+                        <td>${game.developer}</td>
+                        <td>${game.publisher}</td>
+                        <td>${game.price}</td>
+                        <td>${game.genres}</td>
+                        <td>${game.positive_reviews}</td>
+                        <td>${game.negative_reviews}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Handle search button click
+            searchButton.addEventListener('click', () => {
+                const column = searchOptions.value;
+                const operator = searchOperators.value;
+                const value = searchInput.value;
+                const limit = resultLimit.value;
+
+                let queryParams = `?column=${column}&operator=${encodeURIComponent(operator)}&value=${encodeURIComponent(value)}`;
+                if (limit) queryParams += `&limit=${limit}`;
+                fetchGames(queryParams);
+            });
+
+            // Initial fetch on page load
+            fetchGames();
+        </script>
+    </body>
+</html>

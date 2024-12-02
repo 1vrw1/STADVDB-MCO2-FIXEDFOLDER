@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Report Record
+        </title>
+
+        <!--Style Sheet-->
+        <link rel="stylesheet" href="report.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <a href="home.html">View Record</a>
+            </nav>
+
+        </header>
+
+        <main>
+            <!-- Report -->
+            <section id="top-genres">
+                <h3>Top 10 Genres</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Genre</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="genreTable">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </section>
+    
+            <section id="top-platforms">
+                <h3>Most Used Platforms</h3>
+                <ul id="platformList">
+                    <!-- Dynamic List -->
+                </ul>
+            </section>
+    
+            <section id="highest-user">
+                <h3> Games with most Positive Review</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Game Name</th>
+                            <th>Positive review</th>
+                        </tr>
+                    </thead>
+                    <tbody id="highestUserTable">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="highest-metacritic">
+                <h3> Games with most Reviews</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Game Name</th>
+                            <th>No. of reviews</th>
+                        </tr>
+                    </thead>
+                    <tbody id="highestMetacriticTable">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <!--JavaScript-->
+        <script>
+            // Fetch and display top 10 genres
+            async function loadTopGenres() {
+                try {
+                    const response = await fetch('http://localhost:3000/reports/top-genres');
+                    const genres = await response.json();
+
+                    const genreTable = document.getElementById('genreTable');
+                    genreTable.innerHTML = genres.map((genre, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${genre.name}</td>
+                            <td>${genre.count}</td>
+                        </tr>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error fetching top genres:', error);
+                }
+            }
+
+            // Fetch and display most used platforms
+            async function loadTopPlatforms() {
+                try {
+                    const response = await fetch('http://localhost:3000/reports/top-platforms');
+                    const platforms = await response.json();
+
+                    const platformList = document.getElementById('platformList');
+                    platformList.innerHTML = platforms.map(platform => `
+                        <li>${platform.name} (${platform.count} games)</li>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error fetching most used platforms:', error);
+                }
+            }
+
+            // Fetch and display games with most positive reviews
+            async function loadHighestPositiveReviews() {
+                try {
+                    const response = await fetch('http://localhost:3000/reports/highest-positive-reviews');
+                    const games = await response.json();
+
+                    const highestUserTable = document.getElementById('highestUserTable');
+                    highestUserTable.innerHTML = games.map((game, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${game.name}</td>
+                            <td>${game.positive_reviews}</td>
+                        </tr>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error fetching games with most positive reviews:', error);
+                }
+            }
+
+            // Fetch and display games with the most reviews
+            async function loadHighestReviews() {
+                try {
+                    const response = await fetch('http://localhost:3000/reports/highest-reviews');
+                    const games = await response.json();
+
+                    const highestMetacriticTable = document.getElementById('highestMetacriticTable');
+                    highestMetacriticTable.innerHTML = games.map((game, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${game.name}</td>
+                            <td>${game.total_reviews}</td>
+                        </tr>
+                    `).join('');
+                } catch (error) {
+                    console.error('Error fetching games with most reviews:', error);
+                }
+            }
+
+            // Load all reports
+            function loadReports() {
+                loadTopGenres();
+                loadTopPlatforms();
+                loadHighestPositiveReviews();
+                loadHighestReviews();
+            }
+
+            // Trigger loading on page load
+            window.onload = loadReports;
+        </script>
+    </body>
+</html>
