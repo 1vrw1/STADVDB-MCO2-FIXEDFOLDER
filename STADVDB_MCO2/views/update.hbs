@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTC-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Record</title>
+  <link rel="stylesheet" href="/css/update.css">
+</head>
+<body>
+  <header>
+    <h2 class="logo">STADVDB MCO2</h2>
+    <nav class="navigation">
+    </nav>
+  </header>
+
+  <!-- Form to update record -->
+  <form id="gameForm" action="/update/{{record.Game_ID}}" method="POST">
+    <input type="text" name="game_id" value="{{record.Game_ID}}" placeholder="Game ID" required>
+    <input type="text" name="name" value="{{record.Game_Name}}" placeholder="Game Name" required>
+    <input type="datetime" name="release_date" value="{{formatDate record.Release_Date}}" required>
+
+    <input type="text" name="developer" value="{{record.Developers}}" placeholder="Developer">
+    <input type="text" name="publisher" value="{{record.Publishers}}" placeholder="Publisher">
+    <input type="number" name="price" value="{{record.Price}}" placeholder="Price" min="0", step="0.01">
+    <input type="text" name="genres" value="{{record.Genres}}" placeholder="Genres">
+    <input type="number" name="positive_reviews" value="{{record.Positive_Reviews}}" placeholder="Positive Reviews" min="0">
+    <input type="number" name="negative_reviews" value="{{record.Negative_Reviews}}" placeholder="Negative Reviews" min="0">
+    <button type="submit">Update Record</button>
+    <button class="delete" type="submit" onclick="return confirm('Are you sure you want to remove this record?')">Remove Record</button>
+  </form>
+</body>
+</html>

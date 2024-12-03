@@ -108,6 +108,64 @@ hbs.registerHelper('formatDate', function (date) {
   return formattedDate;
 });
 
+// Route to update a record
+app.post('/update/:gameId', (req, res) => {
+  const { gameId } = req.params;
+  const {
+    game_id, name, release_date, about_game, developer, publisher, price, genres, positive_reviews, negative_reviews
+  } = req.body;
+
+  // SQL query to update the record
+  const sqlQuery = `
+    UPDATE mco2 SET
+      Game_Name = ?, Release_Date = ?, Developers = ?, Publishers = ?, Price = ?, Genres = ?, Positive_Reviews = ?, Negative_Reviews = ?
+    WHERE Game_ID = ?
+  `;
+
+  db.query(sqlQuery, [
+    name, release_date, developer, publisher, price, genres, positive_reviews, negative_reviews, gameId
+  ], (err, result) => {
+    if (err) {
+      console.error('Error updating record:', err.message);
+      return res.send('Error updating record');
+    }
+
+    // Redirect to the home page after successful update
+    res.redirect('/');
+  });
+});
+
+
+
+// Route to edit a specific record
+app.get('/edit/:gameId', (req, res) => {
+  const { gameId } = req.params; // Extract the Game_ID from the URL parameter
+
+  // Query to get the record for the specific Game_ID
+  const sqlQuery = 'SELECT * FROM mco2 WHERE Game_ID = ?';
+
+  // Fetch record and pass it to the update.hbs view
+  db.query(sqlQuery, [gameId], (err, rows) => {
+    if (err) {
+      console.error('Error fetching record:', err.message);
+      return res.send('Error fetching record');
+    }
+
+    if (rows.length > 0) {
+      const record = rows[0]; // Get the first (and should be the only) result
+
+      // Render the update form with the record's data
+      res.render('update.hbs', {
+        record, // Pass the record data to the template
+      });
+    } else {
+      res.send('Record not found');
+    }
+  });
+});
+
+
+
 // Routes
 app.get('/report', (req, res) => {
   res.render('report.hbs');
@@ -118,7 +176,7 @@ app.get('/insert', (req, res) => {
 });
 
 const validColumns = [
-  'Game_ID', 'Game_Name', 'Release_Date', 'Developer', 'Publisher',
+  'Game_ID', 'Game_Name', 'Release_Date', 'Developers', 'Publishers',
   'Price', 'Genres', 'Positive_Reviews', 'Negative_Reviews'
 ];
 
