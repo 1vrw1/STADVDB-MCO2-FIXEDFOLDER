@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+
+        <!--IDK-->
+        <meta charset="UTC-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width =device-width,initial-scale=1.0">
+
+        <title>
+            Update Record
+        </title>
+
+        <!--Style Sheet-->
+        <link rel="stylesheet" href="update.css">
+
+    </head>
+
+    <body>
+        <header>
+            <h2 class="logo"> STADVDB MCO2</h2>
+            <!--Top bar-->
+            <nav class="navigation">
+                <a href="home.html">View Record</a>
+                <a href="insert.html">Insert Record</a>
+            </nav>
+
+        </header>
+
+        <!--Form-->
+    <form id="gameForm">
+        <input type="text" name="game_id" placeholder="Game ID" required>
+        <input type="text" name="name" placeholder="Game Name" required>
+        <input type="date" name="release_date" required>
+        <textarea name="about_game" placeholder="About the Game"></textarea>
+        <input type="text" name="developer" placeholder="Developer">
+        <input type="text" name="publisher" placeholder="Publisher">
+        <input type="number" name="price" placeholder="Price" min="0">
+        <input type="text" name="genres" placeholder="Genres">
+        <input type="number" name="positive_reviews" placeholder="Positive Reviews" min="0">
+        <input type="number" name="negative_reviews" placeholder="Negative Reviews" min="0">
+        <button type="submit">Update Record</button>
+        <button class="delete" type="submit">Remove Record</button>
+    </form>
+
+    </body>
+</html>
