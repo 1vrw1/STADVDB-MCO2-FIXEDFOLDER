@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="/css/home.css">
+  </head>
+  <body>
+        <!-- Display Server Statuses -->
+    <section>
+      <h3>Server Status</h3>
+      <ul>
+        {{#each serverStatuses}}
+          <li>{{this.name}}: {{this.status}}</li>
+        {{/each}}
+      </ul>
+    </section>
+    
+    <header>
+      <h2 class="logo">STADVDB MCO2</h2>
+      <!-- Top bar -->
+      <nav class="navigation">
+        <!-- Search bar -->
+        <div class="search">
+          <!-- Dropdown Options -->
+          <select class="search-options" id="searchOptions">
+            <option value="Game_ID" {{#if (eq "Game_ID" searchOption)}}selected{{/if}}>Game ID</option>
+            <option value="Game_Name" {{#if (eq "Game_Name" searchOption)}}selected{{/if}}>Name</option>
+            <option value="Release_Date" {{#if (eq "Release_Date" searchOption)}}selected{{/if}}>Release Date</option>
+            <option value="Developer" {{#if (eq "Developer" searchOption)}}selected{{/if}}>Developer</option>
+            <option value="Publisher" {{#if (eq "Publisher" searchOption)}}selected{{/if}}>Publisher</option>
+            <option value="Price" {{#if (eq "Price" searchOption)}}selected{{/if}}>Price</option>
+            <option value="Genres" {{#if (eq "Genres" searchOption)}}selected{{/if}}>Genres</option>
+            <option value="Positive_Reviews" {{#if (eq "Positive_Reviews" searchOption)}}selected{{/if}}>Positive Reviews</option>
+            <option value="Negative_Reviews" {{#if (eq "Negative_Reviews" searchOption)}}selected{{/if}}>Negative Reviews</option>
+          </select>
+
+          <input class="search-input" id="searchInput" type="search" placeholder="Search" value="{{search}}">
+
+          <button class="search-btn" onclick="filterRecords()">Search</button>
+            <ion-icon name="search-outline"></ion-icon>
+          </div>
+        </div>
+
+        <a href="/insert" onclick="insert()">Insert Record</a>
+        <a href="/report" onclick="report()">Report</a>
+      </nav>
+
+    </header>
+
+    <!-- Display Game Records -->
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Game ID</th>
+            <th>Name</th>
+            <th>Release Date</th>
+            <th>Developer</th>
+            <th>Publisher</th>
+            <th>Price</th>
+            <th>Genres</th>
+            <th>Positive Reviews</th>
+            <th>Negative Reviews</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each records}}
+          <tr>
+            <td>{{this.Game_ID}}</td>
+            <td>{{this.Game_Name}}</td>
+            <td>{{formatDate this.Release_Date}}</td>
+            <td>{{this.Developers}}</td>
+            <td>{{this.Publishers}}</td>
+            <td>{{this.Price}}</td>
+            <td>{{this.Genres}}</td>
+            <td>{{this.Positive_Reviews}}</td>
+            <td>{{this.Negative_Reviews}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </main>
+
+    <!-- Icon JavaScript -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+      function insert()
+      {
+        window.location.href = 'insert.hbs';
+      }
+
+      function report()
+      {
+        window.location.href = 'report.hbs';
+      }
+
+      function filterRecords() {
+        const searchOption = document.getElementById('searchOptions').value;
+        const searchInput = document.getElementById('searchInput').value;
+
+        // Redirect to the filtered route
+        window.location.href = `/?filterBy=${searchOption}&search=${encodeURIComponent(searchInput)}`;
+      }
+    </script>  
+  </body>
+</html>
