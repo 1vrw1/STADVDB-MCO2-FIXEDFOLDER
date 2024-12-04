@@ -8,7 +8,6 @@ const net = require('net'); // Node.js module to check TCP connections
 const app = express();
 const port = 3000;
 
-// Set the view engine to 'hbs'
 app.set('view engine', 'hbs');
 
 // Middleware
@@ -175,6 +174,7 @@ app.get('/insert', (req, res) => {
   res.render('insert.hbs');
 });
 
+
 const validColumns = [
   'Game_ID', 'Game_Name', 'Release_Date', 'Developers', 'Publishers',
   'Price', 'Genres', 'Positive_Reviews', 'Negative_Reviews'
@@ -228,6 +228,24 @@ setInterval(() => {
     tryConnecting();
   }
 }, 5000);
+
+app.post('/gamedata', (req, res) => {
+  const { game_id, name, release_date, developer, publisher, price, genres, positive_reviews, negative_reviews, platforms } = req.body;
+
+  // Validate incoming data
+  if (!game_id || !name || !release_date || !developer || !publisher || !price || !genres || !positive_reviews || !negative_reviews) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+ const query = 'INSERT INTO mco2 (game_id, game_name, release_date, developers, publishers, price, genres, positive_reviews, negative_reviews) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+db.query(query, [game_id, name, release_date, developer, publisher, price, genres, positive_reviews, negative_reviews], (err, result) => {
+  if (err) {
+      console.error('Error inserting game data:', err);
+      return res.status(500).json({ message: 'Failed to insert game data' });
+  }
+  res.status(200).json({ message: 'Game record added successfully' });
+});
+});
 
 // Start the Express server
 app.listen(port, () => {
