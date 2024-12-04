@@ -163,6 +163,85 @@ app.get('/edit/:gameId', (req, res) => {
   });
 });
 
+// Route to delete a record
+app.post('/delete/:gameId', (req, res) => {
+  const { gameId } = req.params;
+
+  // SQL query to delete the record
+  const sqlQuery = 'DELETE FROM mco2 WHERE Game_ID = ?';
+
+  db.query(sqlQuery, [gameId], (err, result) => {
+    if (err) {
+      console.error('Error deleting record:', err.message);
+      return res.send('Error deleting record');
+    }
+
+    console.log(`Record with Game_ID ${gameId} deleted successfully.`);
+    res.redirect('/'); // Redirect back to the home page after deletion
+  });
+});
+
+app.get('/report', async (req, res) => {
+  // Ensure the database is connected before performing any queries
+  if (!dbConnected) {
+      return res.status(500).send('Database not connected');
+  }
+
+  try {
+      // Query for Top 10 Genres
+      const topGenres = await new Promise((resolve, reject) => {
+          db.query(`
+              SELECT Genres, COUNT(*) as GenreCount
+              FROM mco2
+              GROUP BY Genres
+              ORDER BY GenreCount DESC
+              LIMIT 10
+          `, (err, result) => {
+              if (err) return reject(err);
+              resolve(result);
+          });
+      });
+
+
+
+      // Query for Games with Most Positive Reviews
+      const mostPositiveReviews = await new Promise((resolve, reject) => {
+          db.query(`
+              SELECT Game_Name, Positive_Reviews
+              FROM mco2
+              ORDER BY Positive_Reviews DESC
+              LIMIT 10
+          `, (err, result) => {
+              if (err) return reject(err);
+              resolve(result);
+          });
+      });
+
+      // Query for Games with Most Reviews
+      const mostReviews = await new Promise((resolve, reject) => {
+          db.query(`
+              SELECT Game_Name, (Positive_Reviews + Negative_Reviews) as TotalReviews
+              FROM mco2
+              ORDER BY TotalReviews DESC
+              LIMIT 10
+          `, (err, result) => {
+              if (err) return reject(err);
+              resolve(result);
+          });
+      });
+
+      // Render the report.hbs template and pass the data
+      res.render('report', {
+          topGenres,
+          mostPositiveReviews,
+          mostReviews
+      });
+  } catch (err) {
+      console.error('Error fetching report data:', err);
+      res.status(500).send('Error generating report');
+  }
+});
+
 
 
 // Routes

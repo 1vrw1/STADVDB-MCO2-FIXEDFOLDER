@@ -1,87 +1,87 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Record</title>
+    <link rel="stylesheet" href="/css/report.css">
+</head>
+<body>
+    <header>
+        <h2 class="logo">STADVDB MCO2</h2>
+    </header>
+    <main>
+        <!-- Top Genres Section -->
+        <section id="top-genres">
+            <h3>Top 10 Genres</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Genre</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each topGenres}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{this.Genres}}</td>
+                        <td>{{this.GenreCount}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
 
-        <!--IDK-->
-        <meta charset="UTC-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width =device-width,initial-scale=1.0">
 
-        <title>
-            Report Record
-        </title>
 
-        <!--Style Sheet-->
-        <link rel="stylesheet" href="/css/report.css">
+        <!-- Games with Most Positive Reviews Section -->
+        <section id="highest-user">
+            <h3>Games with Most Positive Reviews</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Game Name</th>
+                        <th>Positive Reviews</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each mostPositiveReviews}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{this.Game_Name}}</td>
+                        <td>{{this.Positive_Reviews}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
 
-    </head>
-
-    <body>
-        <header>
-            <h2 class="logo"> STADVDB MCO2</h2>
-            <!--Top bar-->
-            <nav class="navigation">
-            </nav>
-
-        </header>
-
-        <main>
-            <!-- Report -->
-            <section id="top-genres">
-                <h3>Top 10 Genres</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Genre</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody id="genreTable">
-                        <!-- Dynamic Rows -->
-                    </tbody>
-                </table>
-            </section>
-    
-            <section id="top-platforms">
-                <h3>Most Used Platforms</h3>
-                <ul id="platformList">
-                    <!-- Dynamic List -->
-                </ul>
-            </section>
-    
-            <section id="highest-user">
-                <h3> Games with most Positive Review</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Game Name</th>
-                            <th>Positive review</th>
-                        </tr>
-                    </thead>
-                    <tbody id="highestUserTable">
-                        <!-- Dynamic Rows -->
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="highest-metacritic">
-                <h3> Games with most Reviews</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Game Name</th>
-                            <th>No. of reviews</th>
-                        </tr>
-                    </thead>
-                    <tbody id="highestMetacriticTable">
-                        <!-- Dynamic Rows -->
-                    </tbody>
-                </table>
-            </section>
-        </main>
-
-    </body>
+        <!-- Games with Most Reviews Section -->
+        <section id="highest-metacritic">
+            <h3>Games with Most Reviews</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Game Name</th>
+                        <th>Number of Reviews</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each mostReviews}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{this.Game_Name}}</td>
+                        <td>{{this.TotalReviews}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
 </html>

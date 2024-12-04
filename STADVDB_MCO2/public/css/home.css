@@ -49,7 +49,7 @@ header {
     padding: 8px;
 }
 
-button {
+button, a {
     background-color: #48a048;
     color: white;
     border-radius: 15px;
