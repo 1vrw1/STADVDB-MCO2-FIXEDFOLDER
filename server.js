@@ -6,7 +6,7 @@ const hbs = require('hbs');
 const net = require('net'); // Node.js module to check TCP connections
 
 const app = express();
-const port = 3000;
+const port = 3002;
 
 app.set('view engine', 'hbs');
 
@@ -70,10 +70,10 @@ const checkServerStatus = async () => {
 const createDBConnection = () => {
   return mysql.createConnection({
     host: 'ccscloud.dlsu.edu.ph',
-    user: 'user', // Replace with your MySQL username
-    password: 'Str0ngP@ss!', // Replace with your MySQL password
+    user: 'vince', // Replace with your MySQL username
+    password: 'vince', // Replace with your MySQL password
     database: 'server1', // Replace with your database name
-    port: 21952,
+    port: 21972,
     connectTimeout: 10000, // Set timeout for connection
   });
 };
